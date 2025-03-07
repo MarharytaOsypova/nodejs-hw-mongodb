@@ -21,6 +21,12 @@ export const setupServer =() => {
     },
   }),
   ); 
+
+    app.get('/', (req, res) => {
+    res.json({
+      message: 'Ok',
+    });
+  });
   
   app.use(router); 
 
