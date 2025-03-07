@@ -23,7 +23,7 @@ export const setupServer =() => {
   ); 
 
     app.get('/', (req, res) => {
-    res.json({
+    res.status(200).json({
       message: 'Ok',
     });
   });
