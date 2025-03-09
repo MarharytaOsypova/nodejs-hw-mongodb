@@ -49,7 +49,11 @@ export const patchContactController = async (req, res) => {
     const result = await patchContact(contactId, contact);
 
     if (!result) {
-        throw createError(404, "Contact not found");
+        res.status(404).json({
+    status: 404,
+    message: "Contact not found",
+    data: null,
+  });
     }
 
 
@@ -62,11 +66,13 @@ export const patchContactController = async (req, res) => {
 
 export const deleteContactController = async (req, res, next) => {
     const { contactId } = req.params;
-
-    
         const contact = await deleteContact(contactId);
-        if (!contact) {
-            next(createError(404, 'Contact not found'));
+    if (!contact) {
+    res.status(404).json({
+    status: 404,
+    message: "Contact not found",
+    data: null,
+  });
             return;
         }
 
