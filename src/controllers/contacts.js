@@ -1,5 +1,7 @@
 import createError from "http-errors";
-import {patchContact, createContacts, getContactsAll, getContactsID, deleteContact } from "../services/contacts.js";
+import {patchContact, createContacts, getContactsAll, getContactsID, deleteContact, getAllContact } from "../services/contacts.js";
+import { parsePaginationParams } from './../utils/parsePaginationParams.js';
+import { parseSortParams } from './../utils/parseSortParams.js';
 
 
 export const getAllContacts = async (req, res) => {
@@ -66,5 +68,18 @@ export const deleteContactController = async (req, res, next) => {
         res.status(204).send();
 
 };
+
+export const getContactsController = async (req, res) => {
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+  const result = await getAllContact({ page, perPage,sortBy,sortOrder, });
+  res.status(200).json({
+    status: 200,
+    message: "Successfully found contacts!",
+    data: result,
+  });
+};
+
+
 
   
