@@ -6,9 +6,12 @@ try {
     });
     next();
 } catch (error) {
-    const err = createError(400, 'Bad Request', {
-      errors: error.details,
-    });
+    const errorMessages = error.details.map((detail) => ({
+        message: detail.message,
+        path: detail.path,
+        type: detail.type,
+    }));
+const err = createError(400, "Bad request", { errors: errorMessages });
     next(err); 
 }
 }
