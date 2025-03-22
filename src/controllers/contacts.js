@@ -31,12 +31,14 @@ export const getContactsId = async (req, res) => {
 }
   
 export const createContactsController = async (req, res) => {
-    const contact = await createContacts(req.body)
+      const contactData = { ...req.body, userId: req.user._id };
+
+  const newContact = await createContacts(contactData);
     
     res.status(201).json({
         status: 201,
         message: "Successfully created a contact!",
-        data: contact
+        data: newContact
     })
 };
 
@@ -80,6 +82,6 @@ export const getContactsController = async (req, res) => {
   });
 };
 
-
+ 
 
   

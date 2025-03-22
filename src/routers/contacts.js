@@ -5,11 +5,13 @@ import { ctrlWrapper } from './../utils/ctrlWrapper.js';
 import { createContactsSchema, updateContactsSchema } from '../validation/contacts.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
  
 const router = express.Router();
 const jsonParser = express.json();
 
+router.use(authenticate);
 router.get('/', ctrlWrapper(getContactsController));
 router.get('/:contactId',isValidId, ctrlWrapper(getContactsId))
 router.post('/',jsonParser, validateBody(createContactsSchema),  ctrlWrapper(createContactsController))
