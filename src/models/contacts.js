@@ -46,5 +46,3 @@ const contactsShema = new Schema(
 );
 
 export const Contact = model("contact", contactsShema);
-
-

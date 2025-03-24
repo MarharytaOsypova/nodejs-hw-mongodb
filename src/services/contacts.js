@@ -3,9 +3,9 @@
 import { SORT_ORDER } from '../constants/sort.js';
 import { Contact } from '../models/contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
-export const getContactsAll = async () => {
+export const getContactsAll = async (userId) => {
     
-    const contactsAll = await Contact.find()
+    const contactsAll = await Contact.find({userId})
     return contactsAll
 };
 
