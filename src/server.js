@@ -7,12 +7,14 @@ import {errorHandler} from './middlewares/errorHandler.js';
 import {notFoundHandler } from './middlewares/notFoundHandler.js';
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
+import { getEnvVar } from './utils/getEnvVar.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
-dotenv.config();
+
 
 export const setupServer =() => {
     const app = express();
-  const PORT = process.env.PORT || 3000;
+  const PORT = Number(getEnvVar('PORT', '3000'));
   app.use(cors());
   app.use(cookieParser());
 
@@ -23,7 +25,7 @@ export const setupServer =() => {
     },
   }),
   ); 
-
+app.use('/auth/uploads', express.static(UPLOAD_DIR));
     app.get('/', (req, res) => {
     res.status(200).json({
       message: 'Ok',

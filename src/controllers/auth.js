@@ -1,6 +1,7 @@
 
 import { THIRTY_DAYS } from "../constants/token.js";
-import { loginUser,   logoutUser,   refreshUsersSession, registerUser } from "../services/auth.js";
+import { loginUser,   logoutUser,   refreshUsersSession, registerUser, resetPassword } from "../services/auth.js";
+import { sendResetToken } from './../services/auth.js';
 
 
 export const registerUserController = async (req, res) => {
@@ -60,7 +61,7 @@ export const refreshUserSessionController = async (req, res) => {
 
 
 export const logoutUserController = async (req, res) => {
-    if (req.cookies.sessionId) {
+  if (req.cookies.sessionId) {
     await logoutUser(req.cookies.sessionId);
   }
 
@@ -69,4 +70,24 @@ export const logoutUserController = async (req, res) => {
 
   res.status(204).send();
 
-}
+};
+
+export const sendResetEmailController = async (req, res) => {
+  await sendResetToken(req.body.email);
+  res.status(200).json({
+       status: 200,
+       message: "Reset password email has been successfully sent.",
+       data: {}
+  });
+};
+
+
+export const resetPasswordController = async (req, res) => {
+  await resetPassword(req.body);
+  res.status(200).json({
+       status: 200,
+       message: "Password has been successfully reset.",
+       data: {}
+  });
+};
+
