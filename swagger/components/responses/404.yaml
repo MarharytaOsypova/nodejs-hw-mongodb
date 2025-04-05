@@ -1,0 +1,22 @@
+description: 'Not Found'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - errors
+      properties:
+        status:
+          type: integer
+          example: 404
+        message:
+          type: string
+          enum: ['Contact not found', 'Route not found']
+          example: 'Contact not found'
+        errors:
+          type: array
+          items:
+            type: string
+          example: []
